@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-10-09 13:52:19 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="dao.Dossierpatient" table="DOSSIERPATIENT" schema="E19A10TEAM1" optimistic-lock="version">
+        <id name="numdos" type="string">
+            <column name="NUMDOS" length="10" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="docteur" class="dao.Docteur" fetch="select">
+            <column name="MATRICULE" length="6" />
+        </many-to-one>
+        <property name="nomp" type="string">
+            <column name="NOMP" length="20" not-null="true" />
+        </property>
+        <property name="prenomp" type="string">
+            <column name="PRENOMP" length="20" not-null="true" />
+        </property>
+        <property name="genre" type="string">
+            <column name="GENRE" length="1" not-null="true" />
+        </property>
+        <property name="numas" type="string">
+            <column name="NUMAS" length="10" not-null="true" unique="true" />
+        </property>
+        <property name="datenaiss" type="date">
+            <column name="DATENAISS" length="7" not-null="true" />
+        </property>
+        <property name="datec" type="date">
+            <column name="DATEC" length="7" not-null="true" />
+        </property>
+        <set name="consultations" table="CONSULTATION" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="NUMDOS" length="10" not-null="true" />
+            </key>
+            <one-to-many class="dao.Consultation" />
+        </set>
+    </class>
+</hibernate-mapping>
